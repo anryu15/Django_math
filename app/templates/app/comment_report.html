@@ -1,0 +1,56 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<h2 class="my-4">{{ post_data.title }}</h2>
+<hr>
+<p>{{ post_data.created }} by {{ post_data.author }}</p>
+<hr>
+<br /><br />
+{% if post_data.img %}
+    <img src="{{ post_data.img.url }}" width="50" height="50"/>
+{% endif %}
+<!-- <img src="http://latex.codecogs.com/gif.latex?e^{2\pi i} = -1" title="e^{2\pi i} = -1" /> -->
+<br /><br />
+<!-- <p> {{ post_data.content|linebreaksbr }}</p> -->
+{% for key, value in post_data_dict.items %}
+{% if value == 0%}
+    <nobr>{{key}}</nobr>
+{% else %}
+    <nobr><img src="http://latex.codecogs.com/gif.latex?{{ key }}" title="e^{2\pi i} = -1" /></nobr>
+{% endif %}
+
+
+{% endfor %}
+<hr>
+
+<p> by {{ comment_data.author }}</p>
+
+<p>{{ comment_data.body }}</p>
+
+<!-- 報告 -->
+<div class="my-4">
+    <h2>報告</h2>
+</div>
+
+
+<!-- チェックボックス -->
+
+
+
+
+<form name ="report" action="{% url 'comment_report' post_data.id comment_data.id %}" method="post">
+    {% csrf_token %}
+    {% for report in report_data %}
+        <label>
+            <input type="checkbox" name="report" value="{{ report.id }}">
+            {{ report }}
+        </label>
+    {% endfor %}
+    <p>
+        <input type="submit" value="送信する">
+    </p>
+  </form>
+
+{% endblock %}

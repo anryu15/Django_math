@@ -1,0 +1,28 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+   <div class="card card-auth my-5 mx-auto">
+      <div class="card-body">
+          <h5 class="card-title text-center">ログイン</h5>
+          <form method="post" class="form-auth">
+              {% csrf_token %}
+              <div class="form-label">
+               <td><label for="userid">ユーザーID:</label></td>
+               <p></p>
+               <td><input type="text" name="userid"></td>
+              </div>
+              <div class="form-label">
+               <td><label for="password">パスワード：</label></td>
+               <p></p>
+               <td><input type="password" name="password"></td>
+              </div>
+              <p></p>
+              <div class="text-center">
+                  <button class="btn btn-primary" type="submit">ログイン</button>
+              </div>
+          </form>
+      </div>
+  </div>
+{% endblock %}

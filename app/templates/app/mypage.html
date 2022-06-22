@@ -1,0 +1,57 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<!-- カード -->
+<div class="container py-4" id="works">
+    <!-- <h2>Works</h2>
+    <p>This is sample description.This is sample description.This is sample description.This is sample description.This is sample description.This is sample description.</p> -->
+    <div class="card-deck">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ login_user }}</h5>
+            <p class="card-text">{{ login_user.contents }}</p>
+            <p>Goog獲得数 : {{ login_user.numgood }}</p>
+          </div>
+        </div>
+      </div>
+  </div>
+
+<div class="row my-4">
+    <div class="col-md-8">
+        <p></p>
+        
+        {% for post in my_post %}
+    </span>
+    
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <!-- <p>qaqqq</p> -->
+                    {% for key, value in post.content.items %}
+                        {% if value == 0%}
+                            <nobr>{{key | truncatechars:50}}</nobr>
+                            
+                        {% else %}
+                            <nobr><img src="http://latex.codecogs.com/gif.latex?{{ key }}" title="e^{2\pi i} = -1" /></nobr>
+                        {% endif %}
+                        {% endfor %}
+
+                    <div class="btn btn-warning">詳細</div>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ post.created|date }} by {{ post.author }}
+                </div>
+                <a href="{% url 'post_detail' post.id %}" class="stretched-link"></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <aside class="col-md-4">
+        {% include "app/snippets/sidebar.html" %}
+    </aside>
+</div>
+
+{% endblock %}

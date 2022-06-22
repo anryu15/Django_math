@@ -1,0 +1,13 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+
+<h2 class="my-4">{{ post_data.title }}</h2>
+<hr>
+<h5 class="my-4">削除してもよろしいでしょうか？</h5>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">削除する</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f1f1f1;
+    /* background: black; */
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+}
+/* ------ */
+/* ----- */
+
+main {
+    flex: 1;
+}
+
+.formpost {
+    margin-bottom: 1rem;
+}
+
+.card-auth {
+    width: 400px;
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.form-auth {
+    width: 100%;
+}
+
+.form-label-group {
+    margin-bottom: 1rem;
+}
+
+.form-label-group input{
+    border-radius: 2rem;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.font_test {
+    font-size: 20px;    /* 文字サイズ指定 */
+    color: #2196F3;     /* 文字色指定 */
+}
+.comment {
+    color: black;
+}
+
+/* 2段階 */
+.subbox { display: none; }
+
+
+
+
+
+a#good-a {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    border-radius: 0.5rem;
+    border: 2px solid #55C500;
+    border-radius: 0;
+    background: #fff;
+    color: #55C500;
+    text-align: center;
+  }
+  
+  a#good-a:hover {
+    color: #fff;
+    background: #55C500;
+  }
+
+ 

@@ -1,0 +1,13 @@
+<div class="card mb-3">
+    <div class="card-header">
+      カテゴリ
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for category in categories|dictsort:"id" %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'category_post' category.slug %}" class="card-link">{{ category.name }}</a>
+        <span class="badge badge-primary badge-pill">{{ category.num_posts }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+</div>

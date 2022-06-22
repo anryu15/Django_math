@@ -1,0 +1,46 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+
+
+
+<div class="row my-4">
+    <div class="col-md-8">
+        {% if login_user.is_anonymous %}
+            <p>ログインしていません</p>
+        {% else %}
+            <p>{{ login_user }}</p>
+        {% endif %}
+        {% for post in post_data %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <!-- 制限100文字 -->
+                    {% for key, value in post.content.items %}
+                        {% if value == 0%}
+                            <nobr>{{key | truncatechars:50}}</nobr>
+                            
+                        {% else %}
+                            <nobr><img src="http://latex.codecogs.com/gif.latex?{{ key }}" title="e^{2\pi i} = -1" /></nobr>
+                        {% endif %}
+                        {% endfor %}
+                    <br>
+                    <br>
+                    <div class="btn btn-warning">詳細  {{ post.numComment }}</div>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ post.created|date }} by {{ post.author }}
+                </div>
+                <!-- <p>{{ post.comment }}</p> -->
+                <a href="{% url 'post_detail' post.id %}" class="stretched-link"></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <aside class="col-md-4">
+        {% include "app/snippets/sidebar.html" %}
+        {% include "app/snippets/subsidebar.html" %}
+    </aside>
+</div>
+
+{% endblock %}

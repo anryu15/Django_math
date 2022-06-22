@@ -1,0 +1,46 @@
+<!--  Django 部分 -->
+{% extends "app/base.html"' %}
+{% block content %}
+
+     <div class="good-flame">
+       <!-- onclick="api_good() を定義すると、GOODボタンを押した際以下で書いた
+            JavaScript関数が実行される。<span id="good_count"></span>に
+            追加されたいいねの数が反映される-->
+       <a id="good-a" onclick="api_good()">GOOD <span id="good_count"></span></a>
+     </div>
+
+     <p>aaaaaa</p>
+
+<!--  javascript 部分 -->
+
+<script>　　
+   // ページが読み込まれた時にDBから記事に紐づいた「いいね」の数を取得する
+　　window.onload = function () {
+　　    document.getElementById("good_count").innerText = {{ post.good }}
+　　}
+　　
+　　// api_good関数が設定されたaタグがクリックされたら、非同期通信でgoodのカウントを1増やし画面に結果を反映する
+   function api_good() {
+      // いいねの数を増やす記事idをJavaScriptに渡す処理
+      var api_url = "{% url 'blog:api_good' post.pk %}";
+      var btn = document.getElementById("good_count");
+      // 非同期通信をするための関数をインタンス化する
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function () {
+　      // 非同期通信が完了したら以下のifが処理される。request.readyState === 4部分が非同期処理完了を意味している
+          if (request.readyState === 4 && request.status === 200) {
+              var received_data = JSON.parse(request.responseText);
+             // 画面にいいねの数を反映する
+              btn.innerText = received_data.good;
+              // 画面をリロードするまでボタンを押せなくする処理
+              document.getElementById("good-a").removeAttribute( "onclick" );
+          }
+      }
+      // サーバーとの通信を実行する処理
+      request.open("GET",api_url);
+      request.send();
+    }
+
+</script>
+
+{% endblock %}

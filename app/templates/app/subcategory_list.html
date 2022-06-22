@@ -1,0 +1,9 @@
+<h1>カテゴリ一覧</h1>
+<ul>
+  {% for post in post_data %}
+  <li><a href="{% url 'app:subcategory_post' post.subcategory.slug %}">{{ post.subcategory.name }} ({{ post.subcategory.num_posts }})</a></li>
+  {% empty %}
+  <li>カテゴリはありません。</li>
+  {% endfor %}
+</ul>
+<!-- 右側 -->

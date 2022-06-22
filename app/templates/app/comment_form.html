@@ -1,0 +1,37 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<h2 class="my-4">{{ post_data.title }}</h2>
+<hr>
+<p>{{ post_data.created }} by {{ post_data.author }}</p>
+<hr>
+<br /><br />
+{% if post_data.img %}
+    <img src="{{ post_data.img.url }}" width="50" height="50"/>
+{% endif %}
+<!-- <img src="http://latex.codecogs.com/gif.latex?e^{2\pi i} = -1" title="e^{2\pi i} = -1" /> -->
+<br /><br />
+<!-- <p> {{ post_data.content|linebreaksbr }}</p> -->
+{% for key, value in post_data_dict.items %}
+{% if value == 0%}
+    <nobr>{{key}}</nobr>
+{% else %}
+    <nobr><img src="http://latex.codecogs.com/gif.latex?{{ key }}" title="e^{2\pi i} = -1" /></nobr>
+{% endif %}
+{% endfor %}
+
+<div class="my-4">
+    <h2>コメント</h2>
+</div>
+
+<form method="post"　class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="formpost">
+        {% render_field form.body class="control" placeholder="コメントを入力" %}
+    </div>
+    <button class="btn btn-warning" type="submit">投稿する</button>
+</form>
+
+{% endblock %}

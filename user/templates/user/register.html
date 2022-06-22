@@ -1,0 +1,65 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+ 
+   <div class="card card-auth my-5 mx-auto">
+    <div class="card-body">
+        <p class="card-title text-center">サインアップ</p>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <div class="form-label">
+              名前：
+              <p></p>
+              {{ account_form.username }}
+            </div>
+            <div class="form-label">
+              メールアドレス：
+              <p></p>
+              {{ account_form.email }}
+            </div>
+            <div class="form-label">
+              パスワード：
+              <p></p>
+              {{ account_form.password }}
+            </div>
+            <div class="form-label-group">
+              {{ add_account_form.as_table }}
+            </div>
+            <!-- ------ -->
+            
+            <input type="checkbox" value="ボタン1" onclick="clickBtn1()" />
+            <a href="{% url 'service' %}" class="btn btn-link">利用規約</a>同意する</p>
+            <!-- <p id="p1"> -->
+              <div class="text-center" id="p1">利用規約を読んだ
+              <button class="btn btn-primary" type="submit">サインアップ</button>
+          </div>
+          <!-- <p id="p1"> -->
+            <!-- 利用規約を読んだことになります -->
+            </p>
+            <script>
+            //初期表示は非表示
+            document.getElementById("p1").style.display ="none";
+
+            function clickBtn1(){
+              const p1 = document.getElementById("p1");
+
+              if(p1.style.display=="block"){
+                // noneで非表示
+                p1.style.display ="none";
+              }else{
+                // blockで表示
+                p1.style.display ="block";
+              }
+            }
+            </script>
+            <!-- ------- -->
+            <!-- <div class="text-center">
+              <button class="btn btn-primary" type="submit">サインアップ</button>
+          </div> -->
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

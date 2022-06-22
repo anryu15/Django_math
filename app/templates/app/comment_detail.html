@@ -1,0 +1,43 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<p>
+    <strong>
+        <!-- forms.pyで設定したMeta -->
+        <small>{{comment_data.posted_date}}</small>
+        <br>
+        {% for key, value in comment_data.body.items %}
+        {% if value == 0 %}
+        <div class="comment">
+            <nobr>{{key}}</nobr>
+        </div>
+        {% else %}
+            <nobr><img src="http://latex.codecogs.com/gif.latex?{{ key }}" title="e^{2\pi i} = -1" /></nobr>
+        {% endif %}
+        {% endfor %}
+        {% if comment_data.img %}
+        <p>画像あり</p>
+        <img src="{{ comment_data.img.url }}" width="50%" height="50%"/>
+        {% endif %}
+        <p> by {{ comment_data.author }}</p>
+        
+    </strong>
+</p>
+<br />
+
+<!--コメントを評価のボタン-->
+<form class="BigUnko" action="{% url 'add_good'  post_data.id comment_data.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user in good_list %}
+    <label><input type="radio" name="evaluate" value="3">goodを取り消す</label><br />
+    {% elif user in bad_list%}
+    <label><input type="radio" name="evaluate" value="4">badを取り消す</label><br />
+    {% else %}
+    <label><input type="radio" name="evaluate" value="1">good</label>
+    <label><input type="radio" name="evaluate" value="2">bad</label><br />
+    {% endif %}
+    <input type="submit" name="evaluate" value="送信">
+</form>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<h2 class="my-4">{{ post_data.title }}</h2>
+<hr>
+
+<p>{{ post_data.created }} by　<a href="{% url 'other_post' post_data.id %}" class="btn btn-link">{{ post_data.author }}</a></p>
+
+<hr>
+<br /><br />
+{% if post_data.img %}
+    <img src="{{ post_data.img.url }}" width="50" height="50"/>
+{% endif %}
+<!-- <img src="http://latex.codecogs.com/gif.latex?e^{2\pi i} = -1" title="e^{2\pi i} = -1" /> -->
+<br /><br />
+<!-- <p> {{ post_data.content|linebreaksbr }}</p> -->
+{% for key, value in post_data_dict.items %}
+{% if value == 0%}
+    <nobr>{{key}}</nobr>
+{% else %}
+    <nobr><img src="http://latex.codecogs.com/gif.latex?{{ key }}" title="e^{2\pi i} = -1" /></nobr>
+{% endif %}
+{% endfor %}
+
+<p>{{ post_data.category.name }} {{ post_data.subcategory.name }} </p>
+<!-- <img src="http://latex.codecogs.com/gif.latex?{{ post_data.content|linebreaksbr }}" title="e^{2\pi i} = -1" /> -->
+{% if user.is_authenticated %}
+    <hr>
+    <div class="d-flex mb-5">
+        {% if user.id == post_data.author.id %}
+        <a href="{% url 'post_edit' post_data.id %}" class="btn btn-warning mr-2">編集する</a>
+        <a href="{% url 'post_delete' post_data.id%}" class="btn btn-danger">削除する</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<!-- googボタン -->
+<form name ="good" action="{% url 'post_detail_good' post_data.id %}" method="post">
+    {% csrf_token %}
+
+    <input type="submit" name="good" value="good {{ post_data.good }}"> 
+  </form>
+
+  {% if user.username in post_data.goodtext %}
+  <img src="/media/good2.jpeg" width="5%" height="100%" border="0" />
+  {% else %}
+  <img src="/media/good.jpeg" width="5%" height="100%" border="0" />
+  {% endif %}
+
+<!-- コメント -->
+<hr/>
+{% for comment in comment_data %}
+    <!-- <article class="media">
+        <div class="media-content">
+            <div class="content"> -->
+                <p>
+                        <!-- forms.pyで設定したMeta -->
+                        <small>{{comment.posted_date}}</small>
+                        <br>
+                        {% for key, value in comment.body.items %}
+                        {% if value == 0 %}
+                        <div class="comment">
+                            <nobr>{{key}}</nobr>
+                        </div>
+                        {% else %}
+                            <nobr><img src="http://latex.codecogs.com/gif.latex?{{ key }}" title="e^{2\pi i} = -1" /></nobr>
+                        {% endif %}
+                        {% endfor %}
+                    <strong>
+                        <p> by <a href="{% url 'other_post2' comment.id %}" class="btn btn-link">{{ comment.author }}</a></p>
+                    </strong>
+                    <div class="d-flex mb-5">
+                        <a href="{% url 'comment_detail' post_data.id comment.id %}" class="btn btn-info">コメントの詳細</a>
+                    </div>
+                    <span class="border border-primary">good　: {{ comment.goodcomment }}</span>
+                    <span class="border border-secondary">bad　 : {{ comment.badcomment }}</span>
+                    <p></p>
+                    {% if user.username in comment.badcommenttext %}
+                    <img src="/media/bad3.jpg" width="50" height="50" border="0" />
+                    <p>あなたはこのコメントに低評価ボタンを押しました</p>
+                    {% elif user.username in comment.goodcommenttext %}
+                    <img src="/media/good2.jpeg" width="50" height="50" border="0" />
+                    <p>あなたはこのコメントに高評価ボタンを押しました</p>
+                    {% else %}
+                    <p></p>
+                    {% endif %}
+            
+                </p>
+<!--                 
+            </div>
+        </div>
+    </article> -->
+<hr/>
+{% empty %}
+<div class="notification">
+    <p>コメントはまだありません</p>
+</div>
+<hr/>
+{% endfor %}
+<!-- コメント追加 -->
+
+<br>
+
+<div class="d-flex mb-5">
+    <a href="{% url 'add_comment' post_data.id %}" class="btn btn-warning mr-2">コメント追加</a>
+</div>
+
+{% endblock %}

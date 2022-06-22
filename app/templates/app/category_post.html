@@ -1,0 +1,29 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+
+<h2>「{{ category.name }}」の投稿一覧</h2>
+
+
+<div class="row my-4">
+  <div class="col-md-8">
+      {% for post in object_list %}
+          <div class="card mb-4">
+              <div class="card-body">
+                  <h2 class="card-title">{{ post.title }}</h2>
+                  <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+                  <div class="btn btn-warning">詳細</div>
+              </div>
+              <div class="card-footer text-muted">
+                  {{ post.created|date }} by {{ post.author }}
+              </div>
+              <a href="{% url 'post_detail' post.id %}" class="stretched-link"></a>
+          </div>
+      {% empty %}
+      <li>まだ投稿はありません。</li>
+      {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "app/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="card card-auth my-5 mx-auto">
+    <div class="card-body">
+        <p class="card-title text-center">サインアップ</p>
+        <form method="post" class="form-auth">
+            {% csrf_token %}
+            <div class="form-label-group">
+                {% render_field form.username class="form-control" placeholder="ユーザー名" %}
+            </div>
+            <div class="form-label-group">
+                {% render_field form.email class="form-control" placeholder="メールアドレス" %}
+            </div>
+            <div class="form-label-group">
+                {% render_field form.password1 class="form-control" placeholder="パスワード" %}
+            </div>
+            <div class="form-label-group">
+                {% render_field form.password2 class="form-control" placeholder="パスワード(確認)" %}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">サインアップ</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
